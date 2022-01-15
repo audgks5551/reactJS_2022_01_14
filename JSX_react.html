@@ -20,7 +20,8 @@
         let [counter, setCounter] = React.useState(0);
         
         const increaseNumber = () => (
-            setCounter(counter + 1)
+            // setCounter(counter + 1)과 동일
+            setCounter((current) => current + 1) // 더 나은 표현
         );
 
         return (
