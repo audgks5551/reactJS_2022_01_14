@@ -13,11 +13,12 @@
 </body>
 <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
 <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
 <script type="text/babel">
 
-  function Btn({content, big, onClick}) {
+  function Btn({content, fontSize = 14, onClick}) {
     console.log(content, "가 다시 읽힘")
     return (
       <div>
@@ -29,7 +30,7 @@
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
-            fontSize: big ? 20 : 16,
+            fontSize
           }}
         >
         {content}
@@ -40,7 +41,10 @@
   }
 
   const BtnMemo = React.memo(Btn); 
-  
+  BtnMemo.propTypes = {
+    content: PropTypes.string.isRequired,
+    fontSize: PropTypes.number,
+  }
   function App() {
     
     const [value, setValue] = React.useState("저장");
@@ -50,8 +54,8 @@
     
     return (
       <div>
-        <BtnMemo content={value} big={true} onClick={changeValue}/>
-        <BtnMemo content="초기화" big={false}/>
+        <BtnMemo content={value} fontSize={24} onClick={changeValue} />
+        <BtnMemo content="초기화" fontSize={20} />
       </div>
     );
   }
