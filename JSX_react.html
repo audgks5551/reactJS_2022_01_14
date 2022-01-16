@@ -14,10 +14,8 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
 <script type="text/babel">
-    const root = document.getElementById("root");
-
-    function App() {
-        
+    
+    function MinutesToHours() {
         const [amounts, setAmountes] = React.useState(0);
         const [fliped, setFliped] = React.useState(false);
 
@@ -34,9 +32,6 @@
 
         return (
             <div>
-                <div>
-                    <span>시간 분 변경</span>
-                </div>
                 <div>
                     <input 
                     id="hours" 
@@ -62,9 +57,48 @@
                 <button onClick={changeFliped}>fliped</button>
                 <button onClick={reset}>reset</button>
             </div>
-
         );
     }
+    
+    function KMToMiles() {
+        return (
+            <div>
+                <span>KMToMiles</span>
+            </div>
+        );
+    }
+
+    function App() {
+        const [index, setIndex] = React.useState("xx");
+        
+        const onChange = (event) => {
+            setIndex(event.target.value);
+        }
+
+        return  (
+            <div>
+                <div>
+                    <span>변환기</span>
+                </div>
+                <div>
+                    <select value={index} onChange={onChange}>
+                        <option value="xx">골라주세요!</option>
+                        <option value="0">MinutesToHours</option>
+                        <option value="1">KMToMiles</option>
+                    </select>
+                </div>
+                <br />
+                <div>
+                    { index === "xx" ? "선택!!" : null }
+                    { index === "0" ? <MinutesToHours /> : null }
+                    { index === "1" ? <KMToMiles /> : null }
+                </div>
+
+            </div>
+        );
+    }
+
+    const root = document.getElementById("root");
 
     ReactDOM.render(<App />, root);
 </script>
