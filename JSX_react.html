@@ -18,23 +18,49 @@
 
     function App() {
         
-        const [minutes, setMinutes] = React.useState();
+        const [amounts, setAmountes] = React.useState(0);
+        const [fliped, setFliped] = React.useState(false);
 
         const onChange = (event) => {
-            setMinutes(event.target.value);
+            setAmountes(event.target.value);
         };
+        const changeFliped = () => {
+            setFliped((current) => !current);
+            reset();
+        };
+        const reset = () => {
+            setAmountes(0);
+        };
+
         return (
             <div>
                 <div>
-                    <span></span>
-                    <label htmlFor="hours">시간</label>
-                    <input id="hours" type="number" placeholder="시간"/>
+                    <span>시간 분 변경</span>
                 </div>
                 <div>
-                    <span>{ minutes }</span>
-                    <label htmlFor="minutes">분</label>
-                    <input id="minutes" type="number" placeholder="분" onChange={onChange}/>
+                    <input 
+                    id="hours" 
+                    type="number" 
+                    placeholder="시간" 
+                    value={ fliped ? amounts : Math.round(amounts / 60) } 
+                    onChange={onChange}
+                    disabled={!fliped}
+                    />
+                    <label htmlFor="hours">시간</label>
                 </div>
+                <div>
+                    <input 
+                    id="minutes" 
+                    type="number" 
+                    placeholder="분" 
+                    value={ fliped ? Math.round(amounts * 60) : amounts}
+                    onChange={onChange}
+                    disabled={fliped}
+                    />
+                    <label htmlFor="minutes">분</label>
+                </div>
+                <button onClick={changeFliped}>fliped</button>
+                <button onClick={reset}>reset</button>
             </div>
 
         );
